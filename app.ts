@@ -55,6 +55,23 @@ class Library {
         }
     }
 
+    public checkOutBooks(customer: string, ...booksId: number[]): string[] {
+
+        console.log("Checking out books for " + customer);
+
+        let booksCheckedOut: string[] = [];
+
+        for (let id of booksId) {
+            let book: Book = this.getBookById(id);
+            if (book.available) {
+                booksCheckedOut.push(book.title);
+            }
+        }
+
+        return booksCheckedOut;
+
+    }
+
     public logFirstAvilable(books: Array<Book> = this.getAllBooks()): void {
 
         let numberOfBooks: number = books.length;

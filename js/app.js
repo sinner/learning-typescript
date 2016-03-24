@@ -60,6 +60,22 @@ var Library = (function () {
             console.log("City: " + city);
         }
     };
+    Library.prototype.checkOutBooks = function (customer) {
+        var booksId = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            booksId[_i - 1] = arguments[_i];
+        }
+        console.log("Checking out books for " + customer);
+        var booksCheckedOut = [];
+        for (var _a = 0, booksId_1 = booksId; _a < booksId_1.length; _a++) {
+            var id = booksId_1[_a];
+            var book = this.getBookById(id);
+            if (book.available) {
+                booksCheckedOut.push(book.title);
+            }
+        }
+        return booksCheckedOut;
+    };
     Library.prototype.logFirstAvilable = function (books) {
         if (books === void 0) { books = this.getAllBooks(); }
         var numberOfBooks = books.length;
