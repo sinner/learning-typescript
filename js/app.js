@@ -31,6 +31,18 @@ var Library = (function () {
         ];
         return books;
     };
+    Library.prototype.getBookTitleByCategory = function (categoryFilter) {
+        console.log("Getting books in category: " + Category[categoryFilter]);
+        var allBooks = this.getAllBooks();
+        var filteredTitles = [];
+        for (var _i = 0, allBooks_1 = allBooks; _i < allBooks_1.length; _i++) {
+            var currentBook = allBooks_1[_i];
+            if (currentBook.category === categoryFilter) {
+                filteredTitles.push(currentBook.title);
+            }
+        }
+        return filteredTitles;
+    };
     Library.prototype.logFirstAvilable = function (books) {
         var numberOfBooks = books.length;
         var firstAvalaible = "";
@@ -44,9 +56,17 @@ var Library = (function () {
         console.log("Total Books: " + numberOfBooks);
         console.log("First Avalaible: " + firstAvalaible);
     };
+    Library.prototype.logBookTitles = function (titles) {
+        for (var _i = 0, titles_1 = titles; _i < titles_1.length; _i++) {
+            var title = titles_1[_i];
+            console.log(title);
+        }
+    };
     return Library;
 }());
 var myLibrary = new Library(1, "Simón Bolívar");
 var allBooks = myLibrary.getAllBooks();
 myLibrary.logFirstAvilable(allBooks);
+var poetryBooks = myLibrary.getBookTitleByCategory(Category.Poetry);
+myLibrary.logBookTitles(poetryBooks);
 //# sourceMappingURL=app.js.map

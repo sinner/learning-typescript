@@ -20,6 +20,22 @@ class Library {
         return books;
     }
 
+    public getBookTitleByCategory(categoryFilter: Category): Array<string> {
+
+        console.log("Getting books in category: " + Category[categoryFilter]);
+
+        const allBooks = this.getAllBooks();
+        const filteredTitles: string[] = [];
+
+        for (let currentBook of allBooks) {
+            if(currentBook.category === categoryFilter){
+                filteredTitles.push(currentBook.title);
+            }
+        }
+
+        return filteredTitles;
+    }
+
     public logFirstAvilable(books: Array<Book>): void {
 
         let numberOfBooks: number = books.length;
@@ -37,8 +53,17 @@ class Library {
         console.log("First Avalaible: " + firstAvalaible);
     }
 
+    public logBookTitles(titles: string[]): void {
+        for(let title of titles){
+            console.log(title);
+        }
+    }
+
 }
 
 let myLibrary: Library = new Library(1, "Simón Bolívar");
 const allBooks: Array<Book> = myLibrary.getAllBooks();
 myLibrary.logFirstAvilable(allBooks);
+
+const poetryBooks = myLibrary.getBookTitleByCategory(Category.Poetry);
+myLibrary.logBookTitles(poetryBooks);
