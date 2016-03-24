@@ -43,6 +43,13 @@ var Library = (function () {
         }
         return filteredTitles;
     };
+    Library.prototype.getBookById = function (id) {
+        var allBooks = this.getAllBooks();
+        return allBooks.filter(function (book) { return book.id === id; })[0];
+    };
+    Library.prototype.createCustomerId = function (name, id) {
+        return name.toUpperCase() + id;
+    };
     Library.prototype.logFirstAvilable = function (books) {
         var numberOfBooks = books.length;
         var firstAvalaible = "";
@@ -69,4 +76,14 @@ var allBooks = myLibrary.getAllBooks();
 myLibrary.logFirstAvilable(allBooks);
 var poetryBooks = myLibrary.getBookTitleByCategory(Category.Poetry);
 myLibrary.logBookTitles(poetryBooks);
+// Arrow Function
+var fictionBooks = myLibrary.getBookTitleByCategory(Category.Fiction);
+fictionBooks.forEach(function (val, idx, arr) { return console.log(++idx + ".- " + val); });
+var myBook = myLibrary.getBookById(1);
+console.log(myBook);
+// Function Types
+var idGenerator;
+idGenerator = myLibrary.createCustomerId;
+var myId = idGenerator("jsinner", 10);
+console.log(myId);
 //# sourceMappingURL=app.js.map

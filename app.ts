@@ -36,6 +36,15 @@ class Library {
         return filteredTitles;
     }
 
+    public getBookById(id: number): Book{
+        const allBooks = this.getAllBooks();
+        return allBooks.filter(book => book.id === id)[0];
+    }
+
+    public createCustomerId(name: string, id: number): string{
+        return name.toUpperCase() + id;
+    }
+
     public logFirstAvilable(books: Array<Book>): void {
 
         let numberOfBooks: number = books.length;
@@ -53,8 +62,8 @@ class Library {
         console.log("First Avalaible: " + firstAvalaible);
     }
 
-    public logBookTitles(titles: string[]): void {
-        for(let title of titles){
+    public logBookTitles(titles: Array<string>): void {
+        for (let title of titles) {
             console.log(title);
         }
     }
@@ -65,5 +74,19 @@ let myLibrary: Library = new Library(1, "Simón Bolívar");
 const allBooks: Array<Book> = myLibrary.getAllBooks();
 myLibrary.logFirstAvilable(allBooks);
 
-const poetryBooks = myLibrary.getBookTitleByCategory(Category.Poetry);
+const poetryBooks: Array<string> = myLibrary.getBookTitleByCategory(Category.Poetry);
 myLibrary.logBookTitles(poetryBooks);
+
+// Arrow Function
+const fictionBooks: Array<string> = myLibrary.getBookTitleByCategory(Category.Fiction);
+fictionBooks.forEach((val, idx, arr) => console.log(++idx + ".- " + val));
+
+const myBook: Book = myLibrary.getBookById(1);
+console.log(myBook);
+
+// Function Types
+let idGenerator: (chars: string, nums: number) => string;
+idGenerator = myLibrary.createCustomerId;
+
+let myId: string = idGenerator("jsinner", 10);
+console.log(myId);
