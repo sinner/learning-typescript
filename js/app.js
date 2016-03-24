@@ -32,6 +32,7 @@ var Library = (function () {
         return books;
     };
     Library.prototype.getBookTitleByCategory = function (categoryFilter) {
+        if (categoryFilter === void 0) { categoryFilter = Category.Fiction; }
         console.log("Getting books in category: " + Category[categoryFilter]);
         var allBooks = this.getAllBooks();
         var filteredTitles = [];
@@ -50,7 +51,17 @@ var Library = (function () {
     Library.prototype.createCustomerId = function (name, id) {
         return name.toUpperCase() + id;
     };
+    Library.prototype.createCustomer = function (name, age, city) {
+        console.log("Creating customer " + name);
+        if (age) {
+            console.log("Age: " + age);
+        }
+        if (city) {
+            console.log("City: " + city);
+        }
+    };
     Library.prototype.logFirstAvilable = function (books) {
+        if (books === void 0) { books = this.getAllBooks(); }
         var numberOfBooks = books.length;
         var firstAvalaible = "";
         for (var _i = 0, books_1 = books; _i < books_1.length; _i++) {
@@ -85,5 +96,8 @@ console.log(myBook);
 var idGenerator;
 idGenerator = myLibrary.createCustomerId;
 var myId = idGenerator("jsinner", 10);
+console.log(myId);
+idGenerator = function (chars, nums) { return nums + chars.toUpperCase(); };
+myId = idGenerator("jsinner", 10);
 console.log(myId);
 //# sourceMappingURL=app.js.map

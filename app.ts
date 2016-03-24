@@ -20,7 +20,7 @@ class Library {
         return books;
     }
 
-    public getBookTitleByCategory(categoryFilter: Category): Array<string> {
+    public getBookTitleByCategory(categoryFilter: Category = Category.Fiction): Array<string> {
 
         console.log("Getting books in category: " + Category[categoryFilter]);
 
@@ -36,16 +36,26 @@ class Library {
         return filteredTitles;
     }
 
-    public getBookById(id: number): Book{
+    public getBookById(id: number): Book {
         const allBooks = this.getAllBooks();
         return allBooks.filter(book => book.id === id)[0];
     }
 
-    public createCustomerId(name: string, id: number): string{
+    public createCustomerId(name: string, id: number): string {
         return name.toUpperCase() + id;
     }
 
-    public logFirstAvilable(books: Array<Book>): void {
+    public createCustomer(name: string, age?: number, city?: string): void {
+        console.log("Creating customer " + name);
+        if (age) {
+            console.log("Age: " + age);
+        }
+        if (city) {
+            console.log("City: " + city);
+        }
+    }
+
+    public logFirstAvilable(books: Array<Book> = this.getAllBooks()): void {
 
         let numberOfBooks: number = books.length;
         let firstAvalaible: string = "";
@@ -89,4 +99,9 @@ let idGenerator: (chars: string, nums: number) => string;
 idGenerator = myLibrary.createCustomerId;
 
 let myId: string = idGenerator("jsinner", 10);
+console.log(myId);
+
+idGenerator = (chars: string, nums: number) => nums + chars.toUpperCase();
+
+myId = idGenerator("jsinner", 10);
 console.log(myId);
