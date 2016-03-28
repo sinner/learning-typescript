@@ -1,101 +1,6 @@
-enum Category {Biography, Poetry, Fiction, History, Children};
-
-class Book {
-
-    constructor(public id: number, public title: string, public author: string, public available: boolean, public category: number) { }
-
-}
-
-class Library {
-
-    constructor(public id: number, public name: string) { }
-
-    public getAllBooks(): Array<Book> {
-        let books: Array<Book> = [
-            {id: 1, title: "Ulysses", author: "James Joyce", available: false, category: Category.Fiction},
-            {id: 2, title: "A Farewell To Arms", author: "Enest Hemingway", available: false, category: Category.Fiction},
-            {id: 3, title: "I Know Why The Caged Bird Sings", author: "Maya Angelou", available: true, category: Category.Poetry},
-            {id: 4, title: "Moby Dick", author: "Herman Melville", available: true, category: Category.Fiction}
-        ];
-        return books;
-    }
-
-    public getBookTitleByCategory(categoryFilter: Category = Category.Fiction): Array<string> {
-
-        console.log("Getting books in category: " + Category[categoryFilter]);
-
-        const allBooks = this.getAllBooks();
-        const filteredTitles: string[] = [];
-
-        for (let currentBook of allBooks) {
-            if(currentBook.category === categoryFilter){
-                filteredTitles.push(currentBook.title);
-            }
-        }
-
-        return filteredTitles;
-    }
-
-    public getBookById(id: number): Book {
-        const allBooks = this.getAllBooks();
-        return allBooks.filter(book => book.id === id)[0];
-    }
-
-    public createCustomerId(name: string, id: number): string {
-        return name.toUpperCase() + id;
-    }
-
-    public createCustomer(name: string, age?: number, city?: string): void {
-        console.log("Creating customer " + name);
-        if (age) {
-            console.log("Age: " + age);
-        }
-        if (city) {
-            console.log("City: " + city);
-        }
-    }
-
-    public checkOutBooks(customer: string, ...booksId: number[]): string[] {
-
-        console.log("Checking out books for " + customer);
-
-        let booksCheckedOut: string[] = [];
-
-        for (let id of booksId) {
-            let book: Book = this.getBookById(id);
-            if (book.available) {
-                booksCheckedOut.push(book.title);
-            }
-        }
-
-        return booksCheckedOut;
-
-    }
-
-    public logFirstAvilable(books: Array<Book> = this.getAllBooks()): void {
-
-        let numberOfBooks: number = books.length;
-        let firstAvalaible: string = "";
-
-        for (let currentBook of books) {
-
-            if (currentBook.available) {
-                firstAvalaible = currentBook.title;
-                break;
-            }
-        }
-
-        console.log("Total Books: " + numberOfBooks);
-        console.log("First Avalaible: " + firstAvalaible);
-    }
-
-    public logBookTitles(titles: Array<string>): void {
-        for (let title of titles) {
-            console.log(title);
-        }
-    }
-
-}
+import { Category } from "./enums";
+import { BookInterface, StringGeneratorInterface, AuthorInterface, LibrarianInterface } from "./interfaces";
+import { Book, Library } from "./classes";
 
 let myLibrary: Library = new Library(1, "Simón Bolívar");
 const allBooks: Array<Book> = myLibrary.getAllBooks();
@@ -122,3 +27,13 @@ idGenerator = (chars: string, nums: number) => nums + chars.toUpperCase();
 
 myId = idGenerator("jsinner", 10);
 console.log(myId);
+
+// Overloding Functions
+let hermansBooks = myLibrary.getTitles("Herman Melville");
+hermansBooks.forEach((val, idx, arr) => console.log(++idx + ".- " + val));
+
+let availableBooks = myLibrary.getTitles(true);
+hermansBooks.forEach((val, idx, arr) => console.log(++idx + ".- " + val));
+
+// let favoriteAuthor: AuthorInterface = {};
+// let favoriteLibrarian: LibrarianInterface = {};
